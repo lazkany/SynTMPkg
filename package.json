@@ -1,0 +1,102 @@
+{
+    "name": "teamwork",
+    "publisher": "Dr. Yehia Abd Alrahman",
+    "description": "Synthesis of Teamwork Multi-Agent Systems",
+    "url": "https://lazkany.bitbucket.io",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SynTEAM-Y/SyntmIDE"
+    },
+    "icon": "logo.png",
+    "version": "0.0.1",
+    "files": [
+        "bin"
+    ],
+    "type": "module",
+    "scripts": {
+        "build": "tsc -b tsconfig.json && node esbuild.mjs",
+        "watch": "concurrently -n tsc,esbuild -c blue,yellow \"tsc -b tsconfig.json --watch\" \"node esbuild.mjs --watch\"",
+        "lint": "eslint src --ext ts",
+        "langium:generate": "langium generate",
+        "langium:watch": "langium generate --watch",
+        "build:worker": "esbuild --minify ./out/language/main-browser.js --bundle --format=iife --outfile=./public/syntm-server-worker.js",
+        "prepare:public": "shx mkdir -p ./public && shx cp -fr ./src/static/* ./public/",
+        "vscode:prepublish": "npm run esbuild-base -- --minify && npm run lint",
+        "esbuild-base": "esbuild ./src/extension/main.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+        "copy:monaco-editor-wrapper": "shx cp -fr ./node_modules/monaco-editor-wrapper/bundle ./public/monaco-editor-wrapper",
+        "copy:monaco-workers": "shx cp -fr ./node_modules/monaco-editor-workers/dist/ ./public/monaco-editor-workers",
+        "copy:monarch-syntax": "shx cp -fr ./out/syntaxes ./public/",
+        "build:web": "npm run build && npm run build:monarch && npm run prepare:public && npm run build:worker && npm run copy:monaco-editor-wrapper && npm run copy:monaco-workers && npm run copy:monarch-syntax",
+        "build:monarch": "tsc -b tsconfig.monarch.json",
+        "serve": "node ./out/web/app.js"
+    },
+    "dependencies": {
+        "chalk": "~5.3.0",
+        "commander": "~10.0.0",
+        "express": "~4.18.2",
+        "langium": "~2.0.0",
+        "monaco-editor": "^0.34.1",
+        "monaco-editor-workers": "~0.34.2",
+        "monaco-editor-wrapper": "~1.6.0",
+        "vscode-languageclient": "~8.0.2"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.17",
+        "@types/node": "~16.18.11",
+        "@types/vscode": "~1.67.0",
+        "@typescript-eslint/eslint-plugin": "~5.58.0",
+        "@typescript-eslint/parser": "~5.58.0",
+        "concurrently": "^7.6.0",
+        "esbuild": "^0.18.20",
+        "eslint": "~8.33.0",
+        "langium-cli": "~2.0.0",
+        "shx": "^0.3.4",
+        "typescript": "~5.0.4"
+    },
+    "displayName": "Teamwork Synthesis",
+    "engines": {
+        "vscode": "^1.67.0",
+        "node": ">=16.0.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "syntm",
+                "aliases": [
+                    "Syntm",
+                    "syntm"
+                ],
+                "extensions": [
+                    ".stm"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "syntm",
+                "scopeName": "source.syntm",
+                "path": "./syntaxes/syntm.tmLanguage.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "syntm.createAndSend",
+                "title": "Synthesize",
+                "category": "SynTM",
+                "icon": {
+                    "light": "path/to/light/icon.svg",
+                    "dark": "path/to/dark/icon.svg"
+                }
+            }
+        ]
+    },
+    "activationEvents": [],
+    "main": "./out/extension/main.cjs",
+    "bin": {
+        "syntm-cli": "./bin/cli.js"
+    }
+}

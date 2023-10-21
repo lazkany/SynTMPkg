@@ -1,0 +1,15 @@
+{
+    "projectName": "Syntm",
+    "languages": [{
+        "id": "syntm",
+        "grammar": "src/language/syntm.langium",
+        "fileExtensions": [".stm"],
+        "textMate": {
+            "out": "syntaxes/syntm.tmLanguage.json"
+        },
+        "monarch": {
+            "out": "syntaxes/syntm.monarch.ts"
+        }
+    }],
+    "out": "src/language/generated"
+}

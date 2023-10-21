@@ -1,0 +1,47 @@
+{
+  "name": "syntm",
+  "scopeName": "source.syntm",
+  "fileTypes": [
+    ".stm"
+  ],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "name": "keyword.control.syntm",
+      "match": "\\b(Agent|Assume|F|G|Guarantee|In|Out|R|SPEC|U|X|false|true)\\b"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.syntm",
+          "begin": "/\\*",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.syntm"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.syntm"
+            }
+          }
+        },
+        {
+          "begin": "//",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.whitespace.comment.leading.syntm"
+            }
+          },
+          "end": "(?=$)",
+          "name": "comment.line.syntm"
+        }
+      ]
+    }
+  }
+}
