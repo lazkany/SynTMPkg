@@ -12,7 +12,12 @@ Assume Env
 true
 
 Guarantee Sys
-G ((!g0 & !g1 & !g2) | (!g0 & !g1 & !g3) | (!g0 & !g3 & !g2) | (!g3 & !g1 & !g2))
+G (
+    (!g0 & !g1 & !g2) |
+    (!g0 & !g1 & !g3) | 
+    (!g0 & !g3 & !g2) | 
+    (!g3 & !g1 & !g2)
+)
 G (r0 -> F g0)
 G (r1 -> F g1)
 G (r2 -> F g2)

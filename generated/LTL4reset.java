@@ -30,7 +30,7 @@ public class LTL4reset {
           spec.getsInterface().setOutput(out);
           spec.agentBuilder("A4:r3:g3;A3:r2:g2;A2:r1:g1;A1:r0,rs:g0;");
           spec.assumptionBuilder("true".split(","));
-          spec.guaranteeBuilder("G (!rs -> ((!g0 & !g1 & !g2) | !g0 & !g1 & !g3 | !g0 & !g3 & !g2 | (!g3 & !g1 & !g2)) & (rs -> (!g0 & !g1 & !g2& !g3))),G (r0 -> F g0),G (r1 -> F g1),G (r2 -> F g2),G (r3 -> F g3)".split(","));
+          spec.guaranteeBuilder("G (    !rs ->         (        (!g0 & !g1 & !g2) |         (!g0 & !g1 & !g3) |         (!g0 & !g3 & !g2) |         (!g3 & !g1 & !g2)        )     &        rs ->         (!g0 & !g1 & !g2& !g3)    ),G (r0 -> F g0),G (r1 -> F g1),G (r2 -> F g2),G (r3 -> F g3)".split(","));
 
     String command = spec.toString();
     System.out.println(command);
