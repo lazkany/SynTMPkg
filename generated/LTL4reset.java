@@ -16,21 +16,21 @@ import com.syntm.lts.Spec;
 import com.syntm.lts.State;
 import com.syntm.lts.TS;
 
-public class LTLFullArb {
+public class LTL4reset {
     private TS mainTS;
       public static void main(final String[] args)
               throws IOException, InterruptedException, ExecutionException, TimeoutException {
-          LTLFullArb runEngine = new LTLFullArb();
+          LTL4reset runEngine = new LTL4reset();
           Spec spec = new Spec();
-          spec.setcCode("r0,r1");
-          spec.setoCode("g0,g1");
-          Set<String> chan = new HashSet<>(Arrays.asList("r0,r1".split(",")));
-          Set<String> out = new HashSet<>(Arrays.asList("g0,g1".split(",")));
+          spec.setcCode("r0,r1,r2,r3,rs");
+          spec.setoCode("g0,g1,g2,g3");
+          Set<String> chan = new HashSet<>(Arrays.asList("r0,r1,r2,r3,rs".split(",")));
+          Set<String> out = new HashSet<>(Arrays.asList("g0,g1,g2,g3".split(",")));
           spec.getsInterface().setChannels(chan);
           spec.getsInterface().setOutput(out);
-          spec.agentBuilder("A2:r1:g1;A1:r0:g0;");
+          spec.agentBuilder("A4:r3:g3;A3:r2:g2;A2:r1:g1;A1:r0,rs:g0;");
           spec.assumptionBuilder("true".split(","));
-          spec.guaranteeBuilder("G ((g0 & G !r0) -> (F !g0)),G ((g1 & G !r1) -> (F !g1)),G ((g0 & X (!r0 & !g0)) -> X (r0 R !g0)),G ((g1 & X (!r1 & !g1)) -> X (r1 R !g1)),G (!g0 | !g1),r0 R !g0,r1 R !g1,G (r0 -> F g0),G (r1 -> F g1)".split(","));
+          spec.guaranteeBuilder("G (!rs -> ((!g0 & !g1 & !g2) | !g0 & !g1 & !g3 | !g0 & !g3 & !g2 | (!g3 & !g1 & !g2)) & (rs -> (!g0 & !g1 & !g2& !g3))),G (r0 -> F g0),G (r1 -> F g1),G (r2 -> F g2),G (r3 -> F g3)".split(","));
 
     String command = spec.toString();
     System.out.println(command);

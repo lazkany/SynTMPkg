@@ -1,7 +1,9 @@
 import type { LanguageClientOptions, ServerOptions} from 'vscode-languageclient/node.js';
 import * as vscode from 'vscode';
+import {languages, commands,workspace, window } from 'vscode';
 import * as path from 'node:path';
 import { LanguageClient, TransportKind } from 'vscode-languageclient/node.js';
+import { CodelensProvider } from './CodelensProvider.js';
 
 let client: LanguageClient;
 
@@ -17,10 +19,24 @@ export function activate(context: vscode.ExtensionContext): void {
             terminal.sendText(" node ./bin/cli generate "+res);
             terminal.sendText("javac -classpath ./generated/teamwork-1.0.jar ./generated/"+r?.substring(0,r.length-3)+"java");
             terminal.sendText("java -classpath ./generated/teamwork-1.0.jar ./generated/"+r?.substring(0,r.length-3)+"java"); 
-        }
-		
-        
+        }    
 	}));
+
+    const codelensProvider = new CodelensProvider();
+
+    languages.registerCodeLensProvider("*", codelensProvider);
+
+    commands.registerCommand("syntm.enableCodeLens", () => {
+        workspace.getConfiguration("syntm").update("enableCodeLens", true, true);
+    });
+
+    commands.registerCommand("syntm.disableCodeLens", () => {
+        workspace.getConfiguration("syntm").update("enableCodeLens", false, true);
+    });
+
+    commands.registerCommand("syntm.codelensAction", (args: any) => {
+        window.showInformationMessage(`CodeLens action clicked with args=${args}`);
+    });
 }
 
 // This function is called when the extension is deactivated.
