@@ -8,14 +8,15 @@ let client: LanguageClient;
 // This function is called when the extension is activated.
 export function activate(context: vscode.ExtensionContext): void {
     client = startLanguageClient(context);   
-    context.subscriptions.push(vscode.commands.registerCommand('syntm.createAndSend', () => {
+    context.subscriptions.push(vscode.commands.registerCommand('syntm.generate', () => {
         let res =vscode.window.activeTextEditor?.document.fileName;
         let r = vscode.window.activeTextEditor?.document.fileName.replace(/^.*[\\/]/, '');
         if (res!=undefined) {
-            vscode.window.activeTerminal?.show();
-            vscode.window.activeTerminal?.sendText(" node ./bin/cli generate "+res);
-            vscode.window.activeTerminal?.sendText("javac -classpath ./generated/teamwork-1.0.jar ./generated/"+r?.substring(0,r.length-3)+"java");
-            vscode.window.activeTerminal?.sendText("java -classpath ./generated/teamwork-1.0.jar ./generated/"+r?.substring(0,r.length-3)+"java"); 
+            let terminal =vscode.window.createTerminal(`zsh`);
+            terminal.show();
+            terminal.sendText(" node ./bin/cli generate "+res);
+            terminal.sendText("javac -classpath ./generated/teamwork-1.0.jar ./generated/"+r?.substring(0,r.length-3)+"java");
+            terminal.sendText("java -classpath ./generated/teamwork-1.0.jar ./generated/"+r?.substring(0,r.length-3)+"java"); 
         }
 		
         

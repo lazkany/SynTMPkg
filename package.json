@@ -84,7 +84,7 @@
         ],
         "commands": [
             {
-                "command": "syntm.createAndSend",
+                "command": "syntm.generate",
                 "title": "Synthesize",
                 "category": "SynTM",
                 "icon": {
