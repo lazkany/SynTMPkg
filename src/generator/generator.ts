@@ -105,12 +105,10 @@ function generateMain(model: Model): Generated {
         
     });
         model.Assumptions?.formula.forEach(f => {
-        aformula.push(f.$cstNode?.text);
-        
+                aformula.push(f.$cstNode?.text.toString().replace(/\n/g, ''));
     });
         model.Guarantees?.formula.forEach(f => {
-        gformula.push(f.$cstNode?.text);
-        
+                gformula.push(f.$cstNode?.text.toString().replace(/\n/g, ''));   
     });
     return toNode`
     public static void main(final String[] args)
