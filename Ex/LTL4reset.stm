@@ -6,7 +6,7 @@ In(r0,r1,r2,r3,rs) , Out(g0,g1,g2,g3)
 Agent A1 -> In(r0,rs) , Out(g0)
 Agent A2 -> In(r1) , Out(g1)
 Agent A3 -> In(r2) , Out(g2)
-Agent A4 -> In(r3) , Out(g3)
+Agent A4 -> In(r3) , Out(g3) 
 
 Assume Env
 true
