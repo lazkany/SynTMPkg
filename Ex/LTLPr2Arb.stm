@@ -1,0 +1,16 @@
+
+SPEC LTLPr2Arb
+
+In(r0,r1) , Out(g0,g1)
+
+Agent A1 -> In(r0) , Out(g0)
+Agent A2 -> In(r1) , Out(g1)
+
+
+Assume Env
+true
+
+Guarantee Sys
+G (!g1 | !g0)
+//G (r1 -> X (!g0 U g1))
+G (r0 -> F g0)
