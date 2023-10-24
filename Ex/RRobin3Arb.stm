@@ -1,11 +1,11 @@
 
 SPEC RRobin3Arb
 
-In(r0, r1, r2) , Out(g0, g1, g2)
+In(r0,r1,r2) , Out(g0,g1,g2)
 
-Agent A0 -> In(r0) , Out(g0)
-Agent A1 -> In(r1) , Out(g1)
-Agent A2 -> In(r2) , Out(g2)
+Agent A1 -> In(r0) , Out(g0)
+Agent A2 -> In(r1) , Out(g1)
+Agent A3 -> In(r2) , Out(g2)
 
 
 Assume Env

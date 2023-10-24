@@ -9,17 +9,22 @@ export function generateJavaContent(model:Model): Generated {
     return toNode`
     package generated;
 
+    import java.io.BufferedReader;
     import java.io.File;
+    import java.io.FileOutputStream;
     import java.io.FileWriter;
     import java.io.IOException;
+    import java.io.InputStreamReader;
     import java.lang.ProcessBuilder.Redirect;
-    import java.util.Arrays;
     import java.util.HashSet;
+    import java.util.Random;
     import java.util.Set;
+    import java.util.Arrays;
     import java.util.concurrent.ExecutionException;
     import java.util.concurrent.TimeoutException;
 
     import com.syntm.analysis.Partitioning;
+    import com.syntm.lts.Int;
     import com.syntm.lts.Mealy;
     import com.syntm.lts.Spec;
     import com.syntm.lts.State;
@@ -131,6 +136,9 @@ function generateMain(model: Model): Generated {
 				spec.outParam(), "--k");
 
 		File Strategy = new File("Mealy");
+        if (Strategy.exists()) {
+            FileOutputStream fos = new FileOutputStream(Strategy, false);
+        }
 		p.redirectErrorStream(true);
 		p.redirectOutput(Redirect.appendTo(Strategy));
 		Process proc = p.start();
@@ -143,7 +151,6 @@ function generateMain(model: Model): Generated {
 			TS ts = m.toTS(m, m.getName());
 			runEngine.processInput(ts, spec);
 		}
-		Strategy.delete();
     }    
     `;
 }
