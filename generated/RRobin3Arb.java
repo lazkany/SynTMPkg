@@ -21,21 +21,21 @@ import com.syntm.lts.Spec;
 import com.syntm.lts.State;
 import com.syntm.lts.TS;
 
-public class Priorty2Arb {
+public class RRobin3Arb {
     private TS mainTS;
       public static void main(final String[] args)
               throws IOException, InterruptedException, ExecutionException, TimeoutException {
-          Priorty2Arb runEngine = new Priorty2Arb();
+          RRobin3Arb runEngine = new RRobin3Arb();
           Spec spec = new Spec();
-          spec.setcCode("r0,rm");
-          spec.setoCode("g0,gm");
-          Set<String> chan = new HashSet<>(Arrays.asList("r0,rm".split(",")));
-          Set<String> out = new HashSet<>(Arrays.asList("g0,gm".split(",")));
+          spec.setcCode("r0,r1,r2");
+          spec.setoCode("g0,g1,g2");
+          Set<String> chan = new HashSet<>(Arrays.asList("r0,r1,r2".split(",")));
+          Set<String> out = new HashSet<>(Arrays.asList("g0,g1,g2".split(",")));
           spec.getsInterface().setChannels(chan);
           spec.getsInterface().setOutput(out);
-          spec.agentBuilder("A2:rm:gm;A1:r0:g0;");
-          spec.assumptionBuilder("G F !rm".split(","));
-          spec.guaranteeBuilder("G (!gm | !g0),G (rm -> X (!g0 U gm)),G (r0 -> F g0),G ((g0 & X (!r0 & !g0)) -> X (r0 R !g0)),G ((gm & X (!rm & !gm)) -> X (rm R !gm)),G ((g0 & G !r0) -> (F !g0)),G ((gm & G !rm) -> (F !gm))".split(","));
+          spec.agentBuilder("A3:r2:g2;A2:r1:g1;A1:r0:g0;");
+          spec.assumptionBuilder("G ((r0 & !g0) -> X r0),G ((r1 & !g1) -> X r1),G ((r2 & !g2) -> X r2),G ((!r0 & g0) -> X !r0),G ((!r1 & g1) -> X !r1),G ((!r2 & g1) -> X !r2),G F (!r0 | !g0),G F (!r1 | !g1),G F (!r2 | !g2)".split(","));
+          spec.guaranteeBuilder("G ((!g0 & !g1) | ((!g0 | !g1) & !g2)),G (r0 -> F g0),G (r1 -> F g1),G (r2 -> F g2)".split(","));
 
     String command = spec.toString();
     System.out.println(command);

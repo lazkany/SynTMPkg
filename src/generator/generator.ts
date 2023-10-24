@@ -155,7 +155,9 @@ function generateMain(model: Model): Generated {
 			}
 			else
 			{
-				System.out.println("Despite the realizablity of the specification on a single machine, it cannot be realized in our distributed model. The translation to TS resulted in a non-determinstic TS.");
+				System.out.println("Despite the realizablity of the specification on a single agent, it cannot be realized in our distributed model. The translation to TS resulted in a non-determinstic TS.");
+                System.out.println("");
+                System.out.println("");
 			}
 		}
     }    
