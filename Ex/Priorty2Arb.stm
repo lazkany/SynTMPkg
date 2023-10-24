@@ -14,7 +14,7 @@ Guarantee Sys
 G (!gm | !g0)
 G (rm -> X (!g0 U gm))
 G (r0 -> F g0)
-/*G ((g0 & X (!r0 & !g0)) -> X (r0 R !g0))
+G ((g0 & X (!r0 & !g0)) -> X (r0 R !g0))
 G ((gm & X (!rm & !gm)) -> X (rm R !gm))
 G ((g0 & G !r0) -> (F !g0))
-G ((gm & G !rm) -> (F !gm))*/
+G ((gm & G !rm) -> (F !gm))

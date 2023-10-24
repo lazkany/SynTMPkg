@@ -35,7 +35,7 @@ public class Priorty2Arb {
           spec.getsInterface().setOutput(out);
           spec.agentBuilder("A2:rm:gm;A1:r0:g0;");
           spec.assumptionBuilder("G F !rm".split(","));
-          spec.guaranteeBuilder("G (!gm | !g0),G (rm -> X (!g0 U gm)),G (r0 -> F g0)".split(","));
+          spec.guaranteeBuilder("G (!gm | !g0),G (rm -> X (!g0 U gm)),G (r0 -> F g0),G ((g0 & X (!r0 & !g0)) -> X (r0 R !g0)),G ((gm & X (!rm & !gm)) -> X (rm R !gm)),G ((g0 & G !r0) -> (F !g0)),G ((gm & G !rm) -> (F !gm))".split(","));
 
     String command = spec.toString();
     System.out.println(command);
