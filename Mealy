@@ -7,31 +7,19 @@ Lauching Strix with Parameters:  -f (
  !g0 &
  X (G (!gm | !g0)) &
  X (G (rm -> X (!g0 U gm))) &
- X (G (r0 -> F g0)) &
- X (G ((g0 & X (!r0 & !g0)) -> X (r0 R !g0))) &
- X (G ((gm & X (!rm & !gm)) -> X (rm R !gm))) ) --ins=r0,rm --outs=g0,gm --k
+ X (G (r0 -> F g0)) ) --ins=r0,rm --outs=g0,gm --k
 REALIZABLE
 .inputs r0 rm
 .outputs g0 gm
 .i 2
 .o 2
-.p 17
-.s 9
+.p 7
+.s 4
 .r S0
 00 S0 S1 00
-10 S1 S2 10
-01 S1 S3 00
-10 S2 S2 10
-01 S2 S4 10
-10 S3 S5 01
-01 S3 S6 01
-10 S4 S5 01
-01 S4 S7 00
-01 S5 S4 10
-10 S5 S8 10
-10 S6 S5 01
-01 S6 S6 01
-10 S7 S5 01
-01 S7 S7 00
-01 S8 S4 10
-10 S8 S8 10
+10 S1 S1 10
+01 S1 S2 0- + 10
+01 S2 S2 01
+10 S2 S3 01
+10 S3 S1 10
+01 S3 S2 10

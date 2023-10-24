@@ -149,7 +149,14 @@ function generateMain(model: Model): Generated {
         m.toDot(m, m.getName());		
 		if (m.getStatus().equals("REALIZABLE")) {
 			TS ts = m.toTS(m, m.getName());
-			runEngine.processInput(ts, spec);
+            if (!ts.getStatus().equals("ND")) {
+				System.out.println("Specification is REALIZABLE for Multi-Agents. You will get a distributed Implementation :)");
+				runEngine.processInput(ts, spec);
+			}
+			else
+			{
+				System.out.println("Despite the realizablity of the specification on a single machine, it cannot be realized in our distributed model. The translation to TS resulted in a non-determinstic TS.");
+			}
 		}
     }    
     `;
