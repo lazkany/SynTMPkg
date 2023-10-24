@@ -56,7 +56,7 @@ export function generateJavaContent(model:Model): Generated {
     
                 t = t.openParallelCompTS(tss);
             }
-            t.toDot();
+            //t.toDot();
             t = t.prunedTS(t);
             t.toDot();
         }
@@ -150,7 +150,9 @@ function generateMain(model: Model): Generated {
 		if (m.getStatus().equals("REALIZABLE")) {
 			TS ts = m.toTS(m, m.getName());
             if (!ts.getStatus().equals("ND")) {
-				System.out.println("Specification is REALIZABLE for Multi-Agents. You will get a distributed Implementation :)");
+				System.out.println("Specification is also REALIZABLE for Multi-Agents. You will get a distributed Implementation :)");
+                System.out.println("");
+                System.out.println("");
 				runEngine.processInput(ts, spec);
 			}
 			else
