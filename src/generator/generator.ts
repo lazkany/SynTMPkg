@@ -139,7 +139,7 @@ function generateMain(model: Model): Generated {
         if (Strategy.exists()) {
             FileOutputStream fos = new FileOutputStream(Strategy, false);
         }
-		p.redirectErrorStream(true);
+		p.redirectErrorStream(false);
 		p.redirectOutput(Redirect.appendTo(Strategy));
 		Process proc = p.start();
 		proc.waitFor();

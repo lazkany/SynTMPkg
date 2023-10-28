@@ -21,21 +21,21 @@ import com.syntm.lts.Spec;
 import com.syntm.lts.State;
 import com.syntm.lts.TS;
 
-public class RRobin3Arb {
+public class Priorty3Arb {
     private TS mainTS;
       public static void main(final String[] args)
               throws IOException, InterruptedException, ExecutionException, TimeoutException {
-          RRobin3Arb runEngine = new RRobin3Arb();
+          Priorty3Arb runEngine = new Priorty3Arb();
           Spec spec = new Spec();
-          spec.setcCode("r0,r1,r2");
-          spec.setoCode("g0,g1,g2");
-          Set<String> chan = new HashSet<>(Arrays.asList("r0,r1,r2".split(",")));
-          Set<String> out = new HashSet<>(Arrays.asList("g0,g1,g2".split(",")));
+          spec.setcCode("rm,r0,r1");
+          spec.setoCode("gm,g0,g1");
+          Set<String> chan = new HashSet<>(Arrays.asList("rm,r0,r1".split(",")));
+          Set<String> out = new HashSet<>(Arrays.asList("gm,g0,g1".split(",")));
           spec.getsInterface().setChannels(chan);
           spec.getsInterface().setOutput(out);
-          spec.agentBuilder("A3:r2:g2;A2:r1:g1;A1:r0:g0;");
-          spec.assumptionBuilder("G ((r0 & !g0) -> X r0),G ((r1 & !g1) -> X r1),G ((r2 & !g2) -> X r2),G ((!r0 & g0) -> X !r0),G ((!r1 & g1) -> X !r1),G ((!r2 & g1) -> X !r2),G F (!r0 | !g0),G F (!r1 | !g1),G F (!r2 | !g2)".split(","));
-          spec.guaranteeBuilder("G ((!g0 & !g1) | ((!g0 | !g1) & !g2)),G (r0 -> F g0),G (r1 -> F g1),G (r2 -> F g2)".split(","));
+          spec.agentBuilder("A1:r1:g1;A0:r0:g0;Am:rm:gm;");
+          spec.assumptionBuilder("G F !rm".split(","));
+          spec.guaranteeBuilder("G ((!gm & !g0) | ((!gm | !g0) & !g1)),G (rm -> X ((!g0 & !g1) U gm)),G (r0 -> F g0),G (r1 -> F g1),G ((g0 & X (!r0 & !g0)) -> X (r0 R !g0)),G ((g1 & X (!r1 & !g1)) -> X (r1 R !g1)),G ((gm & X (!rm & !gm)) -> X (rm R !gm))".split(","));
 
     String command = spec.toString();
     System.out.println(command);
@@ -46,7 +46,7 @@ public class RRobin3Arb {
           if (Strategy.exists()) {
               FileOutputStream fos = new FileOutputStream(Strategy, false);
           }
-    p.redirectErrorStream(true);
+    p.redirectErrorStream(false);
     p.redirectOutput(Redirect.appendTo(Strategy));
     Process proc = p.start();
     proc.waitFor();
