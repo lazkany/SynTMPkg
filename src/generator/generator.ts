@@ -135,12 +135,12 @@ function generateMain(model: Model): Generated {
 		ProcessBuilder p = new ProcessBuilder("docker", "run", "lazkany/strix", "-f", command, spec.inParam(),
 				spec.outParam(), "--k");
 
-		File Strategy = new File("Mealy");
-        if (Strategy.exists()) {
-            FileOutputStream fos = new FileOutputStream(Strategy, false);
-        }
-		p.redirectErrorStream(false);
-		p.redirectOutput(Redirect.appendTo(Strategy));
+		// File Strategy = new File("Mealy");
+        // if (Strategy.exists()) {
+        //     FileOutputStream fos = new FileOutputStream(Strategy, false);
+        // }
+		//p.redirectErrorStream(true);
+		p.redirectOutput(new File("Mealy"));
 		Process proc = p.start();
 		proc.waitFor();
 
